@@ -4,6 +4,7 @@ from collections import UserDict
 import re
 from datetime import datetime, timedelta
 
+# Represent the Birthday concept.
 class Birthday:
     def __init__(self, value):
         try:
@@ -12,6 +13,7 @@ class Birthday:
         except ValueError:
             raise ValueError("Invalid date format. Use DD.MM.YYYY")
 
+# Represent the Field concept.
 class Field:
     def __init__(self, value):
         self.value = value
@@ -20,6 +22,7 @@ class Field:
     def __str__(self):
         return str(self.value)
 
+# Represent the Name concept.
 class Name(Field):
     def __init__(self, name):
         super().__init__(name)
@@ -56,15 +59,18 @@ class Record:
 birthday: {birthday}"
 
 
+    # Add the add birthday operation.
     def add_birthday(self, birthday : str):
         birth_date = Birthday(birthday)
         self.birthday = birth_date
 
 
+    # Add the add phone operation.
     def add_phone(self, phone: str):
         self.phones.append(Phone(phone))
 
 
+    # Remove the remove phone operation.
     def remove_phone(self, phone: str):
         for p in self.phones:
             if p.value == phone:
@@ -73,6 +79,7 @@ birthday: {birthday}"
         return "Phone not found."
 
 
+    # Update the edit phone operation.
     def edit_phone(self, old_phone: str, new_phone: str):
         for i, p in enumerate(self.phones):
             if p.value == old_phone:
@@ -81,6 +88,7 @@ birthday: {birthday}"
         return "Phone not found."
 
 
+    # Return the find phone operation.
     def find_phone(self, phone: str) -> str:
         for p in self.phones:
             if p.value == phone:
@@ -88,6 +96,7 @@ birthday: {birthday}"
         return "Phone not found."
 
 
+    # Handle the copy record operation.
     def copy_record(self):
         result = Record(self.name)
 
@@ -97,15 +106,19 @@ birthday: {birthday}"
         return result
 
 
+# Represent the AddressBook concept.
 class AddressBook(UserDict):
+    # Add the add record operation.
     def add_record (self, record : Record):
         self.data[record.name.value] = record #,  додає запис до self.data.
     
 
+    # Handle the find operation.
     def find(self, name : str): #,  знаходить запис за ім'ям.
         return self.data.get(name, "Record not found.")
 
 
+    # Return the get upcoming birthdays operation.
     def get_upcoming_birthdays(self):
     
         today = datetime.today().date()
@@ -144,6 +157,7 @@ class AddressBook(UserDict):
             return self
 
 
+    # Handle the delete operation.
     def delete(self, name : str): # видаляє запис за ім'ям.
         if name in self.data:
             del self.data[name]
