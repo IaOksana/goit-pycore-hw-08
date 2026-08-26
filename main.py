@@ -3,6 +3,7 @@ from address_book import *
 
 '''decorator'''
 def input_error(func):
+    # Handle the inner operation.
     def inner(*args, **kwargs):
         try:
             return func(*args, **kwargs)
@@ -18,11 +19,13 @@ def input_error(func):
     return inner
 
 
+# Persist the save data operation.
 def save_data(book, filename : str = "addressbook.pkl"):
     with open(filename, "wb") as f:
         pickle.dump(book, f)
 
 
+# Load the load data operation.
 def load_data(filename : str = "addressbook.pkl"):
     try:
         with open(filename, "rb") as f:
@@ -146,6 +149,7 @@ def get_upcoming_birthdays(book : AddressBook) -> AddressBook:
         return ("Nobody to congrat")
     
 
+# Run the main operation.
 def main() :
 
     # словник Python для зберігання імен і номерів телефонів. Ім'я буде ключем, а номер телефону – значенням.
